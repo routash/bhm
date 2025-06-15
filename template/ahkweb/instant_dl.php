@@ -16,7 +16,7 @@ if (isset($_POST['A2A']) && $_POST['A2A'] == "Axen") {
     if($wallet > $fee){
     $debit_fee =  $wallet - $fee;
 
-    $apik = "TNG-API-a99247-c48e00-610491-ebb2ec-449dea";
+    $apik = $tng_apikey;
     $url = "https://secure.thenextgenapi.co.in/dl_pdf_verification_v1?dl_number=$dl&dltype=$type&apikey=$apik";
     $curl = curl_init();
     curl_setopt_array($curl, [
@@ -33,7 +33,7 @@ if (isset($_POST['A2A']) && $_POST['A2A'] == "Axen") {
        $dob=$resdata['dob'] ?? '';
        $dlNumber=$resdata['dl_number'] ?? '';
        $pdf=$resdata['Driving_Pdf'] ?? '';
-
+    print_r($resdata);
     //    $name='asdsa';
     //    $dob='asdsa';
     //    $dlNumber='asdsa';

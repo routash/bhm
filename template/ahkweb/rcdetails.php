@@ -31,7 +31,7 @@ if (isset($_POST['find'])) {
 
 
         // $rctype = $_POST['rctype']; // "1" Chip, "2" Without Chip, "3" Without Chip New, "4" Chip New
-        $apikey = "TNG-API-a99247-c48e00-610491-ebb2ec-449dea";
+        $apikey = $tng_apikey;
 
         // URL ke through hi parameters 
         $url = "https://secure.thenextgenapi.co.in/vehicle_rcpdf_verification?rcno=$rc_no&rctype=$cardtypeo&apikey=$apikey";

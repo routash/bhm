@@ -30,7 +30,7 @@ include('../../includes/config.php');
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $bio = $_POST['bioenc'];
                 $aadhar = $_POST['aadhar'];
-                $apikey = 'TNG-API-a99247-c48e00-610491-ebb2ec-449dea';
+                $apikey = $tng_apikey;
 
                 if ($wallet_amount > $fee) {
                     $curl = curl_init();

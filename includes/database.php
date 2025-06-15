@@ -3,7 +3,7 @@
 $hostname = "localhost";
 $username = "root";
 $password = "root";
-$database ="bhm";
+$database ="dth";
 
 $ahk_conn = mysqli_connect($hostname,$username,$password,$database);
 
