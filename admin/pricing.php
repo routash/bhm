@@ -32,6 +32,11 @@ if(isset($_POST['aadhaarpdf'])){
     $ayushman_find_fee = mysqli_real_escape_string($ahk_conn,$_POST['ayushman_find_fee']);
 
     $dl_mobile_update_fee = mysqli_real_escape_string($ahk_conn,$_POST['dl_mobile_update_fee']);
+    $two_wheeler_insurance_one = mysqli_real_escape_string($ahk_conn,$_POST['two_wheeler_insurance_one']);
+    $two_wheeler_insurance_two = mysqli_real_escape_string($ahk_conn,$_POST['two_wheeler_insurance_two']);
+    $two_wheeler_insurance_three = mysqli_real_escape_string($ahk_conn,$_POST['two_wheeler_insurance_three']);
+    
+    
 
     $Twowheelerpuc = mysqli_real_escape_string($ahk_conn,$_POST['2wheelerpuc']);
     $Fourwheelerpuc = mysqli_real_escape_string($ahk_conn,$_POST['4wheelerpuc']);
@@ -59,6 +64,10 @@ if(isset($_POST['aadhaarpdf'])){
     $update17 = mysqli_query($ahk_conn,"UPDATE pricing SET price='$dl_mobile_update_fee' WHERE service_name='dl_mobile_update_fee'");
     $update18 = mysqli_query($ahk_conn,"UPDATE pricing SET price='$Twowheelerpuc' WHERE service_name='2wheelerpuc'");
     $update19 = mysqli_query($ahk_conn,"UPDATE pricing SET price='$Fourwheelerpuc' WHERE service_name='4wheelerpuc'");
+    $update20 = mysqli_query($ahk_conn,"UPDATE pricing SET price='$two_wheeler_insurance_one' WHERE service_name='two_wheeler_insurance_one'");
+    $update21 = mysqli_query($ahk_conn,"UPDATE pricing SET price='$two_wheeler_insurance_two' WHERE service_name='two_wheeler_insurance_two'");
+    $update22 = mysqli_query($ahk_conn,"UPDATE pricing SET price='$two_wheeler_insurance_three' WHERE service_name='two_wheeler_insurance_three'");
+
     if( $update && $update1 && $update2 && $update3 && $update4 && $update5 && $update6 && $update7 && $update8 && $update9 && $update10 && $update11 && $update12 && $update13 && $update14 && $update15 && $update16 && $update17 && $update18 && $update19 ){
         ?>
         <script>
