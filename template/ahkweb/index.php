@@ -7,6 +7,13 @@
     cursor: pointer;
 }
    </style>
+   <?php
+$allusersforadmin = 0;
+$query = mysqli_query($ahk_conn, "SELECT COUNT(*) as total FROM users");
+if($row = mysqli_fetch_assoc($query)) {
+    $allusersforadmin = $row['total'];
+}
+?>
    <div class="page-wrapper">
        <div class="page-content">
 
@@ -46,12 +53,11 @@
                <?php
                 if(checkAdmin($udata['type']) == true){
                     ?>
-               <a href="eid_toaadhaar_pdf_admin_list.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-ohhappiness">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?= $eidtoaadhaar;?></h5>
+                                   <h5 class="mb-0 text-white">AADHAAR PRINT</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -61,23 +67,22 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">AADHAAR PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+1.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                 <ul class="list-unstyled">
+                                    <a href="aadhaarprint_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>List For Admin</li></a>
+                                 </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
 
                <?php
                 }else{
                     ?>
-               <a href="eid_to_aadhaar_pdf.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-ohhappiness">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?= $eidtoaadhaarfuser;?></h5>
+                                   <h5 class="mb-0 text-white">AADHAAR PRINT</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -87,13 +92,14 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">FOUND MATCHING DUPLICATE LIST</p>
-                                   <p class="mb-0 ms-auto"><span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="aadhaarprint.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>New Aadhaar Print</li></a>
+                                    <a href="aadhaarprintlist.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Aadhaar Print List</li></a>
+                                </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
 
                <?php
                 }
@@ -101,12 +107,12 @@
                <?php 
                if(checkAdmin($udata['type']) == true){
                 ?>
-               <a href="eid_toaadhaar_no_admin_list.php">
+               
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-ibiza">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$eidtoaadhaarNoforadmin;?></h5>
+                                   <h5 class="mb-0 text-white">Pan Card Admin List</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-group fs-3 text-white'></i>
                                    </div>
@@ -116,22 +122,26 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">AADHAAR NO List</p>
-                                   <p class="mb-0 ms-auto">+5.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="instant_pan_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Instant Pan No List</li></a>
+                                    <a href="pan_no_to_details_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Pan Details List</li></a>
+                                    <a href="utipdf_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Pan Card Update List</li></a>
+                                    <a href="panpdf_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i> Manul Pan PDF List</li></a>
+                                </ul>
+                                  
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+
                <?php 
                }else{
                 ?>
-               <a href="eid_to_aadhaar_no.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-ibiza">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?php echo $eidtoaadhaarNoforuser; ?></h5>
+                                   <h5 class="mb-0 text-white">Ayushman Print</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-group fs-3 text-white'></i>
                                    </div>
@@ -141,25 +151,25 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">GENERATED EID TO AADHAAR NO</p>
-                                   <p class="mb-0 ms-auto">+5.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="ayushman_print.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>New Ayushman Print</li></a>
+                                </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
                <?php 
                }
                ?>
                <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="instant_pan_admin_list.php">
+             
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$pan_noforadmin;?></h5>
+                                   <h5 class="mb-0 text-white">Vahan Admin List</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -169,22 +179,27 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">Search PAN LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="rcdetsils_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>RC PDF List</li></a>
+                                    <a href="lltest_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>L.L Test List</li></a>
+                                    <a href="instant_dl_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Driving Licence List</li></a>
+                                    <a href="dl_mobile_update_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Driving Licence List</li></a>
+                                </ul>
+                                  
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+             
                <?php 
                 }else{
                     ?>
-               <a href="instant_pan.php">
+
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                    <h5 class="mb-0 text-white"><?=$pan_noforuser;?></h5>
+                                    <h5 class="mb-0 text-white">All Pan Card Services</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -194,20 +209,24 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">Search PAN LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                               <ul class="list-unstyled">
+                                    <a href="instant_pan.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Instant Pan No</li></a>
+                                    <a href="pan_no_to_details.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Pan No To Details</li></a>
+                                    <a href="pan_manual.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Manul Pan PDF</li></a>
+                                    <a href="utipdf.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Pan Card Update</li></a>
+                                </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+              
                <?php 
                 }
                ?>
                  <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="ration_card_admin_list.php">
+               <!-- <a href="ration_card_admin_list.php">
                    <div class="col pointer">
                         <div class="card radius-10 bg-gradient-ohhappiness">
                            <div class="card-body">
@@ -228,16 +247,16 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                <?php 
                 }else{
                     ?>
-               <a href="ration_card.php">
+               
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$ration_card_foruser;?></h5>
+                                   <h5 class="mb-0 text-white">All Voter Card Services</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -247,13 +266,16 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">RATION CARD PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="voter_mobile_link_a_TNG_API_DCEB60.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Instant mobile link Voter No</li></a>
+                                    <a href="voter_otp_pdf_a_TNG_API_DCD9DC.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Voter otp  pdf</li></a>
+                                </ul>
+                                  
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+              
                
                <?php 
                 }
@@ -262,7 +284,7 @@
                    <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="vaccine_admin_list.php">
+               <!-- <a href="vaccine_admin_list.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
@@ -283,16 +305,16 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                <?php 
                 }else{
                     ?>
-               <a href="vaccine.php">
+               
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$vacineuser;?></h5>
+                                   <h5 class="mb-0 text-white">All Ration Card Services</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -302,13 +324,16 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">VACCINE CERTIFICATE PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="rationt_to_aadhar_up_a_TNG_API_0163A5.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Instant Ration to aadhar up </li></a>
+                                    <a href="ration_to_pdf_a_TNG_API_A1A5B7.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Instant Ration to pdf</li></a>
+                                </ul>
+                                  
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+              
                
                <?php 
                 }
@@ -317,7 +342,7 @@
                    <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="voter_admin_list.php">
+               <!-- <a href="voter_admin_list.php">
                    <div class="col pointer">
                      <div class="card radius-10 bg-gradient-ohhappiness">
                            <div class="card-body">
@@ -338,16 +363,16 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                <?php 
                 }else{
                     ?>
-               <a href="voter.php">
+               
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$voteruser;?></h5>
+                                   <h5 class="mb-0 text-white">All Vahan Services</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -357,13 +382,17 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">VOTER CARD PDF LIST<</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                                    <a href="rcdetails.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Rc Number To PDF</li></a>
+                                    <a href="lltest.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Learning Licence Test</li></a>
+                                    <a href="instant_dl.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Driving Licence PDF</li></a>
+                                    <a href="dl_mobile_update.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>DL Mobile Number Update</li></a>
+                                </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+             
                
                <?php 
                 }
@@ -372,12 +401,12 @@
                  <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="instant_dl_admin_list.php">
+
                    <div class="col pointer">
                      <div class="card radius-10 bg-gradient-ibiza">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$instant_dladmin;?></h5>
+                                   <h5 class="mb-0 text-white">All Vahan Pollution</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -387,22 +416,24 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">DRIVING LICENCE PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                <ul class="list-unstyled">
+                               <a href="2wheelerpuc_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>2 Wheeler PUC Cert List   </li></a>
+                               <a href="4wheelerpuc_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i> 4 Wheeler PUC Cert List</li></a>
+                               </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+              
                <?php 
                 }else{
                     ?>
-               <a href="instant_dl.php">
+               
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$instant_dluser;?></h5>
+                                   <h5 class="mb-0 text-white">All Vahan Pollution Services</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -412,13 +443,15 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">DRIVING LICENCE PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                              <ul class="list-unstyled">
+                              <a href="2wheelerpuc.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>2 Wheeler PUC Cert</li></a>
+                              <a href="4wheelerpuc.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>4 Wheeler PUC Cert</li></a>
+                              </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+             
                
                <?php 
                 }
@@ -427,12 +460,12 @@
                   <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="aadhaar_no_to_pdf_admin_list.php">
+            
                    <div class="col pointer">
                       <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$aadhaaradmin;?></h5>
+                                   <h5 class="mb-0 text-white">All Vahan Insurance</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -442,22 +475,24 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">AAHDAAR NO TO PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                               <ul class="list-unstyled">
+                                    <a href="four_wheeler_insurance.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Four Wheeler Insurance</li></a>
+                                    <a href="two_wheeler_insurance.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Two Wheeler Insurance</li></a>
+                                    </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+              
                <?php 
                 }else{
                     ?>
-               <a href="aadhaar_no_to_pdf.php">
+              
                    <div class="col pointer">
                         <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
                                <div class="d-flex align-items-center">
-                                   <h5 class="mb-0 text-white"><?=$aadhaaruser;?></h5>
+                                   <h5 class="mb-0 text-white">All Vahan Insurance</h5>
                                    <div class="ms-auto">
                                        <i class='bx bx-id-card fs-3 text-white'></i>
                                    </div>
@@ -467,13 +502,15 @@
                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                </div>
                                <div class="d-flex align-items-center text-white">
-                                   <p class="mb-0">AAHDAAR NO TO PDF LIST</p>
-                                   <p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+                                 <ul class="list-unstyled">
+                                    <a href="four_wheeler_insurance.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Four Wheeler Insurance</li></a>
+                                    <a href="two_wheeler_insurance.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Two Wheeler Insurance</li></a>
+                                    </ul>
                                </div>
                            </div>
                        </div>
                    </div>
-               </a>
+              
                
                <?php 
                 }
@@ -482,7 +519,7 @@
                  <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="complaint_data_admin_list.php">
+               <!-- <a href="complaint_data_admin_list.php">
                    <div class="col pointer">
                      <div class="card radius-10 bg-gradient-ibiza">
                            <div class="card-body">
@@ -503,11 +540,11 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                <?php 
                 }else{
                     ?>
-               <a href="complaint_data.php">
+               <!-- <a href="complaint_data.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
@@ -528,7 +565,7 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                
                <?php 
                 }
@@ -537,7 +574,7 @@
                  <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="rcdetsils_admin_list.php">
+               <!-- <a href="rcdetsils_admin_list.php">
                    <div class="col pointer">
                      <div class="card radius-10 bg-gradient-ibiza">
                            <div class="card-body">
@@ -558,11 +595,11 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                <?php 
                 }else{
                     ?>
-               <a href="rcdetails.php">
+               <!-- <a href="rcdetails.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-moonlit">
                            <div class="card-body">
@@ -583,7 +620,7 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                
                <?php 
                 }
@@ -592,7 +629,7 @@
                  <?php 
                 if(checkAdmin($udata['type']) ==true){
                     ?>
-               <a href="nsdl_admin_list.php">
+               <!-- <a href="nsdl_admin_list.php">
                    <div class="col pointer">
                         <div class="card radius-10 bg-gradient-deepblue">
                            <div class="card-body">
@@ -613,11 +650,11 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                <?php 
                 }else{
                     ?>
-               <a href="nsdl.php">
+               <!-- <a href="nsdl.php">
                    <div class="col pointer">
                        <div class="card radius-10 bg-gradient-deepblue">
                            <div class="card-body">
@@ -638,7 +675,7 @@
                            </div>
                        </div>
                    </div>
-               </a>
+               </a> -->
                
                <?php 
                 }

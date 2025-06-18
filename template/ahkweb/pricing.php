@@ -48,6 +48,9 @@ include('header.php');
 				$two_wheeler_insurance_one = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='two_wheeler_insurance_one'"));
 				$two_wheeler_insurance_two = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='two_wheeler_insurance_two'"));
 				$two_wheeler_insurance_three = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='two_wheeler_insurance_three'"));
+				$four_wheeler_insurance_one = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='four_wheeler_insurance_one'"));
+				$four_wheeler_insurance_two = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='four_wheeler_insurance_two'"));
+				$four_wheeler_insurance_three = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='four_wheeler_insurance_three'"));
 
                 ?>
 				<div class="row">
@@ -178,7 +181,18 @@ include('header.php');
 										<label for="inputFirstName" class="form-label">Two Wheeler Insurance Three</label>
 										<input name="two_wheeler_insurance_three" value="<?php echo $two_wheeler_insurance_three['price']; ?>" type="text"  placeholder="two_wheeler_insurance_three"  class="form-control" id="inputFirstName">
 									</div>
-									
+									<div class="col-md-3">
+										<label for="inputFirstName" class="form-label">Four Wheeler Insurance One</label>
+										<input name="four_wheeler_insurance_one" value="<?php echo $four_wheeler_insurance_one['price']; ?>" type="text"  placeholder="four_wheeler_insurance_one"  class="form-control" id="inputFirstName">
+									</div>
+									<div class="col-md-3">
+										<label for="inputFirstName" class="form-label">Four Wheeler Insurance Two</label>
+										<input name="four_wheeler_insurance_two" value="<?php echo $four_wheeler_insurance_two['price']; ?>" type="text"  placeholder="four_wheeler_insurance_two"  class="form-control" id="inputFirstName">
+									</div>
+									<div class="col-md-3">
+										<label for="inputFirstName" class="form-label">Four Wheeler Insurance Three</label>
+										<input name="four_wheeler_insurance_three" value="<?php echo $four_wheeler_insurance_three['price']; ?>" type="text"  placeholder="four_wheeler_insurance_three"  class="form-control" id="inputFirstName">
+									</div>
 									
 									<div class="col-12">
 										<button type="submit" class="btn btn-primary px-5">Save</button>

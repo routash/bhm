@@ -219,8 +219,8 @@ checkSession();
                     <ul>
                          <li> <a href="rcdetails.php"><i class="bx bx-right-arrow-alt"></i>Rc Number To PDF</a></li>
                          <li> <a href="lltest.php"><i class="bx bx-right-arrow-alt"></i>Learning Licence Test</a></li>
-                         <li> <a href="2wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
-                         <li> <a href="4wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li>
+                         <!-- <li> <a href="2wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
+                         <li> <a href="4wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li> -->
                          <li> <a href="instant_dl.php"><i class="bx bx-right-arrow-alt"></i>Driving Licence PDF</a></li>
                          <li> <a href="dl_mobile_update.php"><i class="bx bx-right-arrow-alt"></i>DL Mobile Number Update</a></li>
                     </ul>
@@ -239,8 +239,8 @@ checkSession();
                     <ul>
                          <li> <a href="rcdetsils_admin_list.php"><i class="bx bx-right-arrow-alt"></i>RC PDF List</a>
                          <li> <a href="lltest_admin_list.php"><i class="bx bx-right-arrow-alt"></i>L.L Test List</a> </li>
-                         <li> <a href="2wheelerpuc_admin_list.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert List</a></li>
-                         <li> <a href="4wheelerpuc_admin_list.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert List</a></li>
+                         <!-- <li> <a href="2wheelerpuc_admin_list.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert List</a></li>
+                         <li> <a href="4wheelerpuc_admin_list.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert List</a></li> -->
                          <li> <a href="instant_dl_admin_list.php"><i class="bx bx-right-arrow-alt"></i>Driving Licence List</a>
                          <li> <a href="dl_mobile_update_admin_list.php"><i class="bx bx-right-arrow-alt"></i>DL Mobile Number Update</a>
                     </ul>
@@ -250,6 +250,72 @@ checkSession();
 						?>
              
                <!--All Vahan Services And-->
+               <!-- all vahan pc -->
+               <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-id-card"></i>
+                        </div>
+                        <div class="menu-title">All Vahan Pollution Services</div>
+                    </a>
+                    <ul>
+                    <ul>
+                         <li> <a href="2wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
+                         <li> <a href="4wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li>
+                    </ul>
+                    </ul>
+                </li>
+
+               <?php
+						if(checkAdmin($udata['type']) == true){
+							?>
+               <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-id-card"></i>
+                        </div>
+                        <div class="menu-title">Vahan Pollution Admin List </div>
+                    </a>
+                    <ul>
+                         <li> <a href="2wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
+                         <li> <a href="4wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li>
+                    </ul>
+                </li>
+                <?php
+						}
+						?>
+                         <!-- all vahan pc and  -->
+                         <!-- All Vahan Insurance -->
+                         <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-id-card"></i>
+                        </div>
+                        <div class="menu-title">All Vahan Insurance Services</div>
+                    </a>
+                    <ul>
+                    <ul>
+                         <li> <a href="two_wheeler_insurance.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
+                         <li> <a href="four_wheeler_insurance.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li>
+                    </ul>
+                    </ul>
+                </li>
+
+               <?php
+						if(checkAdmin($udata['type']) == true){
+							?>
+               <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-id-card"></i>
+                        </div>
+                        <div class="menu-title">Vahan Insurance Admin List </div>
+                    </a>
+                    <ul>
+                         <li> <a href="four_wheeler_insurance_admin_list.php"><i class="bx bx-right-arrow-alt"></i>Four Wheeler Insurance</a></li>
+                         <li> <a href="two_wheeler_insurance_admin_list.php"><i class="bx bx-right-arrow-alt"></i>Two Wheeler Insurance</a></li>
+                    </ul>
+                </li>
+                <?php
+						}
+						?>
+                         <!-- All Vahan Insurance And -->
                 <!-- VOTER CARD PDF -->
                 
                 <!-- Wallet management START -->

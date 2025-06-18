@@ -2,7 +2,82 @@
 include('../includes/session.php');
 include('../includes/config.php');
 include('../template/ahkweb/header.php');
+
+if(isset($_POST['submit'])){
+
+    $mobile_number = mysqli_real_escape_string($ahk_conn, $_POST['mobile_number']);
+    $wheeler_cc = mysqli_real_escape_string($ahk_conn, $_POST['wheeler_cc']);
+    $appliedby = $udata['phone'];
+
+    $rc_link = "";
+    if(isset($_FILES['rc_photo']) && $_FILES['rc_photo']['error'] == 0){
+        $rc_type = $_FILES['rc_photo']['type'];
+        $allowed_types = ['image/jpeg', 'image/jpg', 'image/png'];
+        if(in_array($rc_type, $allowed_types)){
+            $rc_filename = rand(100000,999999).'_'.basename($_FILES['rc_photo']['name']);
+            $upload_path = "uploads/" . $rc_filename;
+            if(move_uploaded_file($_FILES['rc_photo']['tmp_name'], $upload_path)){
+                $rc_link = $upload_path;
+            }
+        }
+    }
+
+    $adhar_link = "";
+    if(isset($_FILES['adhar_photo']) && $_FILES['adhar_photo']['error'] == 0){
+        $adhar_type = $_FILES['adhar_photo']['type'];
+        $allowed_types = ['image/jpeg', 'image/jpg', 'image/png'];
+        if(in_array($adhar_type, $allowed_types)){
+            $adhar_filename = rand(100000,999999).'_'.basename($_FILES['adhar_photo']['name']);
+            $upload_path = "uploads/" . $adhar_filename;
+            if(move_uploaded_file($_FILES['adhar_photo']['tmp_name'], $upload_path)){
+                $adhar_link = $upload_path;
+            }
+        }
+    }
+
+    $price = mysqli_fetch_assoc(mysqli_query($ahk_conn, "SELECT * FROM pricing WHERE service_name='$wheeler_cc'"));
+    if($price){
+        $fee = $price['price'];
+        if($udata['balance'] >= $fee){
+            $nbal = $udata['balance'] - $fee;
+
+            $debit = mysqli_query($ahk_conn,"UPDATE users SET balance=balance-$fee WHERE phone='$appliedby'");
+
+            $updatehistory = mysqli_query($ahk_conn,"INSERT INTO `wallethistory`(`userid`, `amount`, `balance`, `purpose`, `status`, `type`) VALUES ('$appliedby','$fee','$nbal','Two Wheeler Insurance','$fee','Debit')");
+
+            if($debit && $updatehistory){
+                $submit = mysqli_query($ahk_conn, "INSERT INTO `two_wheeler_insurance` (`appliedby`, `rc_photo`, `adhar_photo`, `mobile_number`, `wheeler_cc`, `status`, `fee`) VALUES ('$appliedby', '$rc_link', '$adhar_link', '$mobile_number', '$wheeler_cc', 'pending', '$fee')");
+
+                if($submit){
+                    ?>
+                    <script>
+                        Swal.fire('Applied Successfully', 'You Will Get it Soon', 'success');
+                        setTimeout(() => { window.location.href=''; }, 1500);
+                    </script>
+                    <?php
+                } else {
+                    ?>
+                    <script>Swal.fire('Oops!', 'Database Insert Failed', 'error');</script>
+                    <?php
+                }
+            } else {
+                ?>
+                <script>Swal.fire('Oops!', 'Wallet update failed', 'error');</script>
+                <?php
+            }
+        } else {
+            ?>
+            <script>Swal.fire('Insufficient Wallet Balance', 'Please add money to wallet', 'error');</script>
+            <?php
+        }
+    } else {
+        ?>
+        <script>Swal.fire('Error', 'Pricing not found', 'error');</script>
+        <?php
+    }
+}
 ?>
+
 <!--start page wrapper -->
 <div class="page-wrapper">
     <div class="page-content">
@@ -39,15 +114,15 @@ include('../template/ahkweb/header.php');
                             <h5 class="mb-0 text-primary">Enter Wheller Details For Insurance</h5>
                         </div>
                         <hr>
-                        <form action="" method="POST" class="row g-3">
+                        <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
                             <div class="col-md-4">
                                 <label for="inputFirstName" class="form-label">RC Photo</label>
-                                <input type="file" name="front_side" accept="image/jpeg" required class="form-control" >
+                                <input type="file" name="rc_photo" accept="image/jpeg" required class="form-control" >
                             </div>
 
                             <div id="maindate" class="col-md-4">
                                 <label for="inputEmail" class="form-label">Adhar card Photo</label>
-                                <input type="file" name="front_side" accept="image/jpeg" required class="form-control" >
+                                <input type="file" name="adhar_photo" accept="image/jpeg" required class="form-control" >
                             </div>
                             <div id="maineid" class="col-md-4">
                                 <label for="inputLastName" class="form-label">Mobile Number</label>
@@ -55,7 +130,7 @@ include('../template/ahkweb/header.php');
                             </div>
                             <div id="maineid" class="col-md-6">
                         <label for="inputLastName" class="form-label">Wheeler CC</label>
-                        <select name="wheller_cc" id="cc" class="form-select">
+                        <select name="wheeler_cc" id="cc" class="form-select" onchange="updateFee()">
                             <option value="">Select CC</option>
                             <option value="two_wheeler_insurance_one">0-100 CC</option>
                             <option value="two_wheeler_insurance_two">101-150 CC</option>
@@ -64,18 +139,40 @@ include('../template/ahkweb/header.php');
                         </div>
 
                         <div class="col-12 ml-2">
-                            <h5 class="text-warning ">Application Fee: <?php  
-                                $price = mysqli_fetch_assoc(mysqli_query($ahk_conn, "
-                                SELECT SUM(price) AS price FROM pricing 
-                                WHERE service_name IN ('two_wheeler_insurance_one', 'two_wheeler_insurance_two', 'two_wheeler_insurance_three')
-                                ")); 
-                                echo "₹" . $price['price'];
-                            ?></h5>
-                            <input type="hidden" name="fee" value="<?php echo $price['price']; ?>">
-                            </div>
+                                    <?php  
+                                    $prices = [];
+                                    $query = mysqli_query($ahk_conn, "
+                                        SELECT service_name, price FROM pricing 
+                                        WHERE service_name IN ('two_wheeler_insurance_one', 'two_wheeler_insurance_two', 'two_wheeler_insurance_three')
+                                    ");
+                                    
+                                    while($row = mysqli_fetch_assoc($query)) {
+                                        $prices[$row['service_name']] = $row['price'];
+                                    }
+                                    ?>
+                                    
+                                    <h5 class="text-warning">Application Fee: <span id="fee_text">₹0</span></h5>
+                                    <input type="hidden" name="fee" id="fee_input" value="0">
+                                </div>
+
+                                <script>
+                                    const pricing = {
+                                        "two_wheeler_insurance_one": <?= $prices['two_wheeler_insurance_one'] ?? 0 ?>,
+                                        "two_wheeler_insurance_two": <?= $prices['two_wheeler_insurance_two'] ?? 0 ?>,
+                                        "two_wheeler_insurance_three": <?= $prices['two_wheeler_insurance_three'] ?? 0 ?>
+                                    };
+
+                                    function updateFee() {
+                                        const selected = document.getElementById("cc").value;
+                                        const fee = pricing[selected] || 0;
+                                        document.getElementById("fee_text").innerText = "₹" + fee;
+                                        document.getElementById("fee_input").value = fee;
+                                    }
+                                </script>
+
 
                             <div class="col-12">
-                            <button type="submit" class="btn btn-primary px-5">Apply</button>
+                            <button type="submit" name="submit" class="btn btn-primary px-5">Apply</button>
                             </div>
                         </form>
                     </div>
@@ -97,62 +194,58 @@ include('../template/ahkweb/header.php');
                 <thead class="table-light">
                     <tr>
                         <th class="text-center">SL.</th>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Licence Number</th>
+                        <th class="text-center">Appliedby</th>
+                        <th class="text-center">Rc Photo</th>
+                        <th class="text-center">Adhar Photo</th>
                         <th class="text-center">Mobile Number</th>
-                        <th class="text-center">Date of Birth</th>
-                        <th class="text-center">State</th>
+                        <th class="text-center">CC</th>
+                        <th class="text-center">Fee</th>
+                        <th class="text-center">Date</th>
                         <th class="text-center">Status</th>
                     </tr>
                 </thead>
                 <tbody>
         
                    
-<?php
-
-$res = mysqli_query($ahk_conn,"SELECT * FROM dl_mobile_update WHERE appliedby='".$udata['phone']."'  ORDER BY id DESC");
-if(mysqli_num_rows($res)>0){
-$x=0;
-while($data = mysqli_fetch_assoc($res)){
-$x ++;
+                <?php
+$res = mysqli_query($ahk_conn,"SELECT * FROM two_wheeler_insurance WHERE appliedby='".$udata['phone']."' ORDER BY id DESC");
+if(mysqli_num_rows($res) > 0){
+    $x = 0;
+    while($data = mysqli_fetch_assoc($res)){
+        $x++;
 ?>
 <tr>
-    <td class="text-center"><?= $x;?></td>
-     <td class="text-center"><?php echo strtoupper($data['name']); ?></td>
-     <td class="text-center"><?php echo strtoupper($data['licence_number']); ?></td>
-     <td class="text-center"><?php echo strtoupper($data['mobile_number']); ?></td>
-    <td class="text-center"><?php echo strtoupper($data['dob']); ?></td>
-    <td class="text-center"><?php echo strtoupper($data['state']); ?></td>
+    <td class="text-center"><?= $x; ?></td>
+    <td class="text-center"><?= strtoupper($data['appliedby']); ?></td>
+    <td class="text-center">
+        <a href="<?= $data['rc_photo']; ?>" target="_blank">RC Photo</a>
+    </td>
+    <td class="text-center">
+        <a href="<?= $data['adhar_photo']; ?>" target="_blank">Aadhar Photo</a>
+    </td>
+    <td class="text-center"><?= strtoupper($data['mobile_number']); ?></td>
+    <td class="text-center"><?= strtoupper($data['wheeler_cc']); ?></td>
+    <td class="text-center">₹<?= $data['fee']; ?></td>
+    <td class="text-center"><?= date('d-m-Y h:i A', strtotime($data['apply_date'])); ?></td>
     <td class="text-center">
         <?php
-            if($data['status']=="pending"){
-                ?>
-                <div class="badge rounded-pill bg-light-warning text-warning w-100">Pending...
-                </div>
-            
-                <?php
-            }else if($data['status']=="success"){
-                    ?>
-                     <div class="badge rounded-pill bg-light-success text-success w-100">Success
-                </div>
-                    <?php
-            }else if($data['status']=="refunded"){
-                    ?>
-                     <div class="badge rounded-pill bg-light-info text-info w-100">Refunded
-                    </div>
-                    
-                    <?php
-            }
+        if($data['status'] == "pending"){
+            echo '<div class="badge rounded-pill bg-light-warning text-warning w-100">Pending...</div>';
+        } else if($data['status'] == "success"){
+            echo '<div class="badge rounded-pill bg-light-success text-success w-100">Success</div>';
+        } else if($data['status'] == "refunded"){
+            echo '<div class="badge rounded-pill bg-light-info text-info w-100">Refunded</div>';
+        }
         ?>
     </td>
 </tr>
 <?php
-
-}
+    }
 }
 ?>
+
                   
-                </tbody>
+                </tbody>    
             </table>
         </div>
     </div>
@@ -250,81 +343,3 @@ showMaskOnHover: false,
 });
 </script> -->
 </html>
-<?php
-if(isset($_POST['licence_number']) && !empty($_POST['dob']) && !empty($_POST['state']) ){
-    $licence_number = mysqli_real_escape_string($ahk_conn,$_POST['licence_number']);
-    $dob = mysqli_real_escape_string($ahk_conn,$_POST['dob']);
-    $mobile_number = mysqli_real_escape_string($ahk_conn,$_POST['mobile_number']);
-    $name = mysqli_real_escape_string($ahk_conn,$_POST['name']);
-    $state = mysqli_real_escape_string($ahk_conn,$_POST['state']);
-    $fee = mysqli_real_escape_string($ahk_conn,$_POST['fee']);
-    $appliedby = $udata['phone'];
-    $price = mysqli_fetch_assoc(mysqli_query($ahk_conn,"SELECT * FROM pricing WHERE service_name='dl_mobile_update_fee' "));
-    if($udata['balance']>=$price['price']){
-        $fee = $price['price'];
-        $nbal = $udata['balance']-$price['price'];
-        $debit = mysqli_query($ahk_conn,"UPDATE users SET balance=balance-$fee WHERE phone='$appliedby'");
-        $updatehistory = mysqli_query($ahk_conn,"INSERT INTO `wallethistory`(`userid`, `amount`, `balance`, `purpose`, `status`, `type`) VALUES ('$appliedby','$fee','$nbal','L.L Test Pass','1','Debit')");
-        if($debit && $updatehistory){
-        $submit = mysqli_query($ahk_conn,"INSERT INTO `dl_mobile_update` (`appliedby`, `licence_number`, `dob`, `mobile_number`, `name`, `state`, `status`, `fee`) VALUES('$appliedby','$licence_number','$dob','$mobile_number','$name','$state','pending','$fee')");
-        if($submit){
-            ?>
-            <script>
-                $(function(){
-                    Swal.fire(
-                        'Applied Successfully',
-                        'You Will Get it Soon',
-                        'success'
-                    )
-                })
-                setTimeout(function() {
-                    window.location.href='';
-                }, 1500);
-            </script>
-            <?php
-        }else{
-            ?>
-            <script>
-                $(function(){
-                    Swal.fire(
-                        'Opps',
-                        'Something Went Wrong',
-                        'error'
-                    )
-                })
-            </script>
-            <?php
-        }
-
-        }else{
-            ?>
-            <script>
-                $(function(){
-                    Swal.fire(
-                        'Opps',
-                        'Something Went Wrong',
-                        'error'
-                    )
-                })
-            </script>
-            <?php
-        }
-
-        
-    }else{
-        ?>
-        <script>
-            $(function(){
-                Swal.fire(
-                    'Insuficient Wallet Balance',
-                    'Please Add Money to wallet',
-                    'error'
-                )
-            })
-        </script>
-        <?php
-
-    }
-    
-    
-}
