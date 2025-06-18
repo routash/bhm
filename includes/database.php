@@ -2,7 +2,7 @@
 // Database  Details  
 $hostname = "localhost";
 $username = "root";
-$password = "root";
+$password = "text@123";
 $database ="dth";
 
 $ahk_conn = mysqli_connect($hostname,$username,$password,$database);

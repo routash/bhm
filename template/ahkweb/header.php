@@ -275,8 +275,8 @@ checkSession();
                         <div class="menu-title">Vahan Pollution Admin List </div>
                     </a>
                     <ul>
-                         <li> <a href="2wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
-                         <li> <a href="4wheelerpuc.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li>
+                         <li> <a href="2wheelerpuc_admin_list.php"><i class="bx bx-right-arrow-alt"></i>2 Wheeler PUC Cert</a></li>
+                         <li> <a href="4wheelerpuc_admin_list.php"><i class="bx bx-right-arrow-alt"></i>4 Wheeler PUC Cert</a></li>
                     </ul>
                 </li>
                 <?php

@@ -323,23 +323,4 @@ showMaskOnHover: false,
 });
 });
 </script>
-<!-- <script>
- $('#cc').on('change', function(){
-    var selected = $(this).val();
-    if(selected != ''){
-        $.ajax({
-            type: "POST",
-            url: "get_price.php",
-            data: { service_name: selected },
-            success: function(data){
-                $('#feeAmount').text(data);
-                $('#feeHidden').val(data);
-            }
-        });
-    } else {
-        $('#feeAmount').text('0');
-        $('#feeHidden').val('0');
-    }
-});
-</script> -->
 </html>
