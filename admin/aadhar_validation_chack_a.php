@@ -7,7 +7,7 @@ include('../template/ahkweb/header.php');
 $price = mysqli_fetch_assoc(mysqli_query($ahk_conn, "SELECT * FROM pricing WHERE service_name='aadhar_validation_fee' "));
 $fee = $price['price'];
 $captchaData = [];
-$captchaUrl = "https://secure.thenextgenapi.co.in/aadhar_captcha_verification.php";
+$captchaUrl = "$tng_url/aadhar_captcha_verification.php";
 
 
 $curl = curl_init($captchaUrl);
@@ -29,7 +29,7 @@ if ($_POST['aadhar'] && $_POST['captcha']) {
     $debit_fee =  $udata['balance'] - $fee;
     $apikey = $tng_apikey;
     if ($udata['balance'] >= $fee) {
-        $url = "https://secure.thenextgenapi.co.in/aadhar_validation.php?aadhar=$aadhar&captcha=$captcha&captchaSID=$captchaSID&apikey=$apikey";
+        $url = "$tng_url/aadhar_validation.php?aadhar=$aadhar&captcha=$captcha&captchaSID=$captchaSID&apikey=$apikey";
 
         $curl = curl_init();
         curl_setopt_array($curl, [

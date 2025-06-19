@@ -35,7 +35,7 @@ include('../../includes/config.php');
                 if ($wallet_amount > $fee) {
                     $curl = curl_init();
                     curl_setopt_array($curl, [
-                        CURLOPT_URL => "https://secure.thenextgenapi.co.in/aadhar_verification",
+                        CURLOPT_URL => "$tng_url/aadhar_verification",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_POST => true,
                         CURLOPT_POSTFIELDS => [

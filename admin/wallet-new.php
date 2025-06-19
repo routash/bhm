@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </script>";
     } else {
         // QR Code
-        $qrapiUrl = "https://secure.thenextgenapi.co.in/qr_verification?apikey=$apikey&amount=$amount";
+        $qrapiUrl = "$tng_url/qr_verification?apikey=$apikey&amount=$amount";
 
 $curl = curl_init();
 
@@ -68,7 +68,7 @@ $qrData = json_decode($response, true);
 
         // UTR verification
         if (!empty($utr)) {
-$apiUrl = "https://secure.thenextgenapi.co.in/bharatpaygateway_verification?apikey=$apikey&utr=$utr";
+$apiUrl = "$tng_url/bharatpaygateway_verification?apikey=$apikey&utr=$utr";
 
 $curl = curl_init();
 

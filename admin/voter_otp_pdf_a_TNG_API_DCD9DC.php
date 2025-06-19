@@ -6,7 +6,7 @@ include('../template/ahkweb/header.php');
 
 $appliedby = $udata['phone']; 
 $TNG_APIKE = $tng_apikey;
-$tng_url="https://secure.thenextgenapi.co.in";
+$tng_url="$tng_url";
 $fee = 15; // service fee
 $resdata = [];
 $showOtpForm = false;

@@ -136,7 +136,7 @@ var ssoauth_ver = $.now();
 	
 
 			function initCapture(d) {
-				$.getScript("https://secure.thenextgenapi.co.in/printcapturekyc.js?v=" + ssoauth_ver).done(function (script, textStatus) {
+				$.getScript("<?php echo $tng_url; ?>/printcapturekyc.js?v=" + ssoauth_ver).done(function (script, textStatus) {
 					if (textStatus == "success") { startCaptureRD({ authType: d.type, fpDevice: d.device, env: "P", isHttpsService: d.isHttpsService }, function (data) { if (d.p === "http") hdnPIDData.val(data.data); else  hdnPIDData.val(data.data);
  $("#biodata").val(data.data);
  $("#aadhar").val(txtUID.val());

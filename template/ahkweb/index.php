@@ -476,8 +476,8 @@ if($row = mysqli_fetch_assoc($query)) {
                                </div>
                                <div class="d-flex align-items-center text-white">
                                <ul class="list-unstyled">
-                                    <a href="four_wheeler_insurance.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Four Wheeler Insurance</li></a>
-                                    <a href="two_wheeler_insurance.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Two Wheeler Insurance</li></a>
+                                    <a href="four_wheeler_insurance_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Four Wheeler Insurance</li></a>
+                                    <a href="two_wheeler_insurance_admin_list.php"><li class="text-white mb-1"> <i class='bx bx-right-arrow-alt'></i>Two Wheeler Insurance</li></a>
                                     </ul>
                                </div>
                            </div>

@@ -17,7 +17,7 @@ $server=$_SERVER['SERVER_NAME'];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://secure.thenextgenapi.co.in/aadhar_verification_v1',
+  CURLOPT_URL => "$tng_url/aadhar_verification_v1",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 30,

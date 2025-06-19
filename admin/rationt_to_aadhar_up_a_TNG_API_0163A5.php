@@ -15,7 +15,7 @@ if (isset($_POST['rationNumber'])) {
         $debit_fee = $wallet - $fee;
 
        $api_thenextgenapi =$tng_apikey; // Buy API from this website https://thenextgenapi.in
-        $url = "https://secure.thenextgenapi.co.in/ration_to_aadhar_up_verification?ration_no=$rationNumber&apikey=$api_thenextgenapi";
+        $url = "$tng_url/ration_to_aadhar_up_verification?ration_no=$rationNumber&apikey=$api_thenextgenapi";
 
         $curl = curl_init();
         curl_setopt_array($curl, [

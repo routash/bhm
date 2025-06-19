@@ -16,7 +16,7 @@ $skyline_key ="915917dbb254fc6852b189be2fb92bd23010f9c033a2cf64340dc8521b81cc2e"
 
 $axen_api="skylineax.pro";
 $axen_key="915917dbb254fc6852b189be2fb92bd23010f9c033a2cf64340dc8521b81cc2e";
-$tng_url="https://secure.thenextgenapi.co.in/";
+$tng_url="http://core.woodhaat.in";
 $tng_apikey="TNG-API-6a57c6-617871-542c3b-547738-3a0e28";
 
 function checkSession(){

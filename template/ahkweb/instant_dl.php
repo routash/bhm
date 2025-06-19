@@ -17,7 +17,7 @@ if (isset($_POST['A2A']) && $_POST['A2A'] == "Axen") {
     $debit_fee =  $wallet - $fee;
 
     $apik = $tng_apikey;
-    $url = "https://secure.thenextgenapi.co.in/dl_pdf_verification_v1?dl_number=$dl&dltype=$type&apikey=$apik";
+    $url = "$tng_url/dl_pdf_verification_v1?dl_number=$dl&dltype=$type&apikey=$apik";
     $curl = curl_init();
     curl_setopt_array($curl, [
     CURLOPT_URL => $url,

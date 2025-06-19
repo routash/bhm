@@ -15,7 +15,7 @@ if ($_POST['aadhar'] && $_POST['rationtype']) {
 
     if ($udata['balance'] >= $fee) {
         $apikey = 'YOUR_API_KEY';
-        $url = "https://secure.thenextgenapi.co.in/uid_ration_pdf_verification_v1?uid=$aadhar&rationtype=$rationtype&apikey=$apikey";
+        $url = "$tng_url/uid_ration_pdf_verification_v1?uid=$aadhar&rationtype=$rationtype&apikey=$apikey";
 
         $curl = curl_init();
         curl_setopt_array($curl, [

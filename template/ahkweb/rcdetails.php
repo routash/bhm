@@ -34,7 +34,7 @@ if (isset($_POST['find'])) {
         $apikey = $tng_apikey;
 
         // URL ke through hi parameters 
-        $url = "https://secure.thenextgenapi.co.in/vehicle_rcpdf_verification?rcno=$rc_no&rctype=$cardtypeo&apikey=$apikey";
+        $url = "$tng_url/vehicle_rcpdf_verification?rcno=$rc_no&rctype=$cardtypeo&apikey=$apikey";
 
         $curl = curl_init();
         curl_setopt_array($curl, [

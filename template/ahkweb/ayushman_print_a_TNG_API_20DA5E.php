@@ -17,7 +17,7 @@ if ($_POST['aadhar']) {
 
         $apikey = "Enter Your APIKEY";
 
-        $url = "https://secure.thenextgenapi.co.in/ayushman_verification?aadhar=$aadhar&stateCode=$stateCode&apikey=$apikey";
+        $url = "$tng_url/ayushman_verification?aadhar=$aadhar&stateCode=$stateCode&apikey=$apikey";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
